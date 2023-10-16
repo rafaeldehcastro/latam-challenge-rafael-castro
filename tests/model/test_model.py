@@ -28,7 +28,7 @@ class TestModel(unittest.TestCase):
     def setUp(self) -> None:
         super().setUp()
         self.model = DelayModel()
-        self.data = pd.read_csv(filepath_or_buffer="../data/data.csv")
+        self.data = pd.read_csv(filepath_or_buffer="/Users/radaedhecastro/Documents/latam-challenge-rafael-castro/data/data.csv")
         
 
     def test_model_preprocess_for_training(
@@ -86,14 +86,22 @@ class TestModel(unittest.TestCase):
         assert report["1"]["recall"] > 0.60
         assert report["1"]["f1-score"] > 0.30
 
-
     def test_model_predict(
         self
     ):
-        features = self.model.preprocess(
-            data=self.data
+        # Preprocess the data to get features and target
+        features, target = self.model.preprocess(
+            data=self.data,
+            target_column="delay"
+        )
+        
+        # Fit the model with the features and target data
+        self.model.fit(
+            features=features,
+            target=target
         )
 
+        # Now you can call predict
         predicted_targets = self.model.predict(
             features=features
         )

@@ -1,12 +1,8 @@
 # Software Engineer (ML & LLMs) Challenge
 
-## Overview
-
-Welcome to the **Software Engineer (ML & LLMs)** Application Challenge. In this, you will have the opportunity to get closer to a part of the reality of the role, and demonstrate your skills and knowledge in machine learning and cloud.
-
 ## Problem
 
-A jupyter notebook (`exploration.ipynb`) has been provided with the work of a Data Scientist (from now on, the DS). The DS, trained a model to predict the probability of **delay** for a flight taking off or landing at SCL airport. The model was trained with public and real data, below we provide you with the description of the dataset:
+Predict the probability of **delay** for a flight taking off or landing at SCL airport. The model was trained with public and real data, below we provide you with the description of the dataset:
 
 |Column|Description|
 |-----|-----------|
@@ -82,17 +78,36 @@ We need to operationalize the data science work for the airport team. For this, 
 
 ### Part I
 
-In order to operationalize the model, transcribe the `.ipynb` file into the `model.py` file:
+# Model Decision: Flight Delay Prediction at SCL Airport
 
-- If you find any bug, fix it.
-- The DS proposed a few models in the end. Choose the best model at your discretion, argue why. **It is not necessary to make improvements to the model.**
-- Apply all the good programming practices that you consider necessary in this item.
-- The model should pass the tests by running `make model-test`.
+In the excersice of predicting flight delays at SCL Airport, we've navigated through various models developed by the DS. After evaluation, the decision on the model to deploy is the next.
 
-> **Note:**
-> - **You cannot** remove or change the name or arguments of **provided** methods.
-> - **You can** change/complete the implementation of the provided methods.
-> - **You can** create the extra classes and methods you deem necessary.
+## Model Selection: **Logistic Regression with Feature Importante but without Balance (Model 5)** 
+
+### Justifications:
+
+1. **Mitigating False Alarms**:
+   - This model brings to the table a precision of 0.53, meaning when it predicts a delay, it's correct 53% of the time. This characteristic is pivotal in reducing the instances of false alarms, which can be particularly impactful in operational contexts.
+   
+2. **Balancing Recall with Available Options**:
+   - Although the recall is not particularly impressive (0.01), it’s on par with Model 3 (**XGBoost with Feature Importance and with Balance**), another model with a high precision but from a different algorithm (XGBoost). This equal recall means it identifies the same proportion of actual delays while bringing other benefits to the table.
+
+3. **Computational Considerations**:
+   - Logistic Regression, which is the algorithm behind the Model 5, is generally less computationally demanding and quicker to train compared to XGBoost models. This efficiency can be beneficial in scenarios that demand frequent retraining or real-time predictions, ensuring operational "fluidity".
+
+4. **Demystifying Predictions**:
+   - The interpretability of Logistic Regression models provides a transparent window into the predictions, fostering an environment where the decision-making process of the model can be more easily understood and explained to the stakeholders or to the users.
+
+###  Concerns:
+
+- **Suboptimal Recall**: This model, recognizes a mere 1% of actual delays, a figure that is far from ideal in practical applications. This limitation underscores a pronounced likelihood of overlooking actual delays in predictions.
+
+- **Path Forward for Optimization**: Despite settling on Model 5, the journey doesn’t end here. Continuous exploration into further adjustments and post-processing strategies, such as modifying the prediction threshold, will be crucial in enhancing its performance, especially in lifting recall.
+
+## Concluding Thoughts
+
+The decision to proceed with Model 5 are the necessity to minimize false alarms, computational efficiency, and model interpretability, albeit with a recognition of its limitations, particularly in recall.
+
 
 ### Part II
 
